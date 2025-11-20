@@ -2,8 +2,6 @@
 
 A professional, elegant, and minimalistic website designed for a medical practice specializing in gastroenterology. Built with Astro for optimal performance and easy content management.
 
-![Doctor's Website Preview](src/assets/rotonda.png)
-
 ## Project Overview
 
 This website provides a clean, professional online presence for a medical practice with the following features:
@@ -65,7 +63,7 @@ The site includes the following key sections:
 - **Responsive Design**: Mobile-first approach with adaptive layouts
 - **SVG Icons**: Lightweight, scalable icons for visual elements
 
-## 🧞 Development Commands
+## Development Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -101,4 +99,4 @@ Site content can be easily updated by modifying the Astro component files in the
 
 ---
 
-Developed with ❤️ using Astro
+Developed using Astro

@@ -6,21 +6,25 @@
   <div class="navbar-container">
     <div class="logo">
       <a href="/">
-        <img src="/logo.svg" alt="Logo" height="40" />
+        <img src="/logo.svg" alt="Logo" height="60" />
       </a>
     </div>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#whychoose" class="nav-link">Sobre mí</a></li>
+      <li class="nav-item"><a href="#specialties" class="nav-link">Especialidades</a></li>
+      <li class="nav-item"><a href="#treatments" class="nav-link">Tratamientos</a></li>
+    </ul>
+    
+    <div class="nav-contact">
+      <a href="#contact" class="contact-button">Contacto</a>
+    </div>
+    
     <div class="hamburger">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="#about" class="nav-link">Sobre mí</a></li>
-      <li class="nav-item"><a href="#specialties" class="nav-link">Especialidades</a></li>
-      <li class="nav-item"><a href="#treatments" class="nav-link">Guía de Salud</a></li>
-      <li class="nav-item"><a href="#blog" class="nav-link">Blog</a></li>
-      <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>
-    </ul>
   </div>
 </nav>
 
@@ -28,20 +32,29 @@
   .navbar {
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: transparent;
+    backdrop-filter: blur(10px);
     z-index: 1000;
-    padding: 0.75rem 0;
+    padding: 1.5rem 0;
     transition: all 0.3s ease;
   }
 
+  .navbar.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-md);
+    padding: 1rem 0;
+  }
+
   .navbar-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
+    gap: 2rem;
     padding: 0 2rem;
   }
 
@@ -58,7 +71,7 @@
   }
 
   .logo img {
-    height: 40px;
+    height: 50px;
     width: auto;
     display: block;
   }
@@ -68,7 +81,9 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 2rem;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center;
   }
 
   .nav-item {
@@ -76,23 +91,67 @@
   }
 
   .nav-link {
-    color: #333;
+    color: var(--color-text-primary);
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
     padding: 0.5rem 0;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    transition: width 0.3s ease;
   }
 
   .nav-link:hover {
-    color: #4a90e2;
+    color: var(--color-primary);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-contact {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .contact-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-primary);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contact-button:hover {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 
   /* Hamburger menu styles */
   .hamburger {
     display: none;
     cursor: pointer;
+    grid-column: 3;
   }
 
   .bar {
@@ -101,11 +160,36 @@
     height: 3px;
     margin: 5px auto;
     transition: all 0.3s ease;
-    background-color: #333;
-    border-radius: 1px;
+    background-color: var(--color-text-primary);
+    border-radius: var(--radius-sm);
   }
 
+  /* Tablet */
+  @media (max-width: 968px) {
+    .navbar-container {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .nav-menu {
+      gap: 1.5rem;
+    }
+
+    .contact-button {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
+    .navbar {
+      padding: 1rem 0;
+    }
+
+    .navbar-container {
+      grid-template-columns: auto 1fr auto;
+    }
+
     .hamburger {
       display: block;
     }
@@ -115,18 +199,21 @@
       left: -100%;
       top: 0;
       flex-direction: column;
-      background-color: white;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
       width: 100%;
       max-width: 300px;
       height: 100vh;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-2xl);
       padding: 80px 0 0 2rem;
-      transition: 0.3s;
+      transition: left 0.3s ease;
       gap: 2rem;
+      justify-content: flex-start;
     }
 
     .nav-menu.active {
       left: 0;
+      align-items: center;
     }
 
     .nav-item {
@@ -135,6 +222,29 @@
 
     .nav-link {
       font-size: 1.1rem;
+    }
+
+    .nav-link::after {
+      display: none;
+    }
+
+    .nav-contact {
+      position: fixed;
+      bottom: 2rem;
+      left: -100%;
+      width: 100%;
+      max-width: 300px;
+      padding: 0 2rem;
+      transition: left 0.3s ease;
+    }
+
+    .nav-contact.active {
+      left: 0;
+    }
+
+    .contact-button {
+      width: 100%;
+      justify-content: center;
     }
 
     .hamburger.active .bar:nth-child(1) {
@@ -153,19 +263,35 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector('.navbar');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const navContact = document.querySelector('.nav-contact');
     
-    if (hamburger && navMenu) {
+    // Handle scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar?.classList.add('scrolled');
+      } else {
+        navbar?.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    if (hamburger && navMenu && navContact) {
       hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        navContact.classList.toggle('active');
       });
       
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
+      // Close menu on link click
+      const allLinks = [...document.querySelectorAll('.nav-link'), document.querySelector('.contact-button')];
+      allLinks.forEach(link => {
+        link?.addEventListener('click', () => {
           hamburger.classList.remove('active');
           navMenu.classList.remove('active');
+          navContact.classList.remove('active');
         });
       });
     }
