@@ -3,7 +3,7 @@ title: "Dieta sin Gluten"
 category: "Nutrición Especializada"
 description: "Guía completa para seguir una dieta sin gluten de forma saludable y equilibrada, ideal para personas con enfermedad celíaca o sensibilidad al gluten."
 image: "/assets/medweb_background.avif"
-downloadFile: "/downloads/dieta-sin-gluten.pdf"
+downloadFile: "/public/dietas-pdf/dieta-sin-gluten.pdf"
 featured: true
 draft: false
 ---

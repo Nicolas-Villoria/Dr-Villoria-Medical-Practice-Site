@@ -3,7 +3,7 @@ title: "Dieta sin Lactosa"
 category: "Intolerancias Alimentarias"
 description: "Guía práctica para manejar la intolerancia a la lactosa, identificar alimentos seguros y mantener una nutrición equilibrada sin lácteos convencionales."
 image: "/assets/medweb_background.avif"
-downloadFile: "/downloads/dieta-lactosa.pdf"
+downloadFile: "/public/dietas-pdf/dietas-intolerancia-lactosa.pdf"
 featured: false
 draft: false
 ---
