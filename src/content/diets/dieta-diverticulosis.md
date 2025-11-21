@@ -3,7 +3,7 @@ title: "Dieta para Diverticulosis"
 category: "Salud Digestiva"
 description: "Plan nutricional rico en fibra para prevenir complicaciones de la diverticulosis y mantener un tránsito intestinal saludable."
 image: "/assets/medweb_background.avif"
-downloadFile: "/public/dietas-pdf/Diverticulosis.pdf"
+downloadFile: "/dietas-pdf/Diverticulosis.pdf"
 featured: false
 draft: false
 ---

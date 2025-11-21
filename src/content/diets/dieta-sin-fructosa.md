@@ -3,7 +3,7 @@ title: "Dieta sin Fructosa"
 category: "Intolerancias Alimentarias"
 description: "Recomendaciones para reducir la fructosa en la dieta y aliviar síntomas digestivos en personas con mala absorción o intolerancia a este azúcar."
 image: "/assets/medweb_background.avif"
-downloadFile: "/public/dietas-pdf/dieta-sin-fructosa.pdf"
+downloadFile: "/dietas-pdf/dieta-sin-fructosa.pdf"
 featured: false
 draft: false
 ---

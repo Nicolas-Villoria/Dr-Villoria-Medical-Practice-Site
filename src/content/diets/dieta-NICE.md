@@ -3,7 +3,7 @@ title: "Dieta NICE para Intestino Irritable"
 category: "Síndrome Intestino Irritable"
 description: "Estrategia nutricional práctica para aliviar síntomas del SII mediante cambios en hábitos alimentarios sin restricciones estrictas."
 image: "/assets/medweb_background.avif"
-downloadFile: "/public/dietas-pdf/dieta-NICE.pdf"
+downloadFile: "/dietas-pdf/dieta-NICE-SII.pdf"
 featured: false
 draft: false
 ---
