@@ -11,7 +11,7 @@
     </div>
     
     <ul class="nav-menu">
-      <li class="nav-item"><a href="#whychoose" class="nav-link">Sobre mí</a></li>
+      <li class="nav-item"><a href="#about" class="nav-link">Sobre mí</a></li>
       <li class="nav-item"><a href="#specialties" class="nav-link">Especialidades</a></li>
       <li class="nav-item"><a href="#treatments" class="nav-link">Tratamientos</a></li>
     </ul>
@@ -205,7 +205,7 @@
       max-width: 300px;
       height: 100vh;
       box-shadow: var(--shadow-2xl);
-      padding: 80px 0 0 2rem;
+      padding: 80px 0 0 0;
       transition: left 0.3s ease;
       gap: 2rem;
       justify-content: flex-start;
@@ -295,5 +295,37 @@
         });
       });
     }
+
+    // Handle navigation - check if we're on homepage or not
+    const isHomePage = window.location.pathname === '/';
+    const navLinks = document.querySelectorAll('.nav-link, .contact-button');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        
+        // Only handle hash links
+        if (href && href.startsWith('#')) {
+          const targetId = href.substring(1);
+          
+          if (isHomePage) {
+            // We're on homepage - smooth scroll
+            e.preventDefault();
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          } else {
+            // We're on another page - navigate to homepage with hash
+            // Let the browser handle it naturally
+            window.location.href = '/' + href;
+          }
+        }
+      });
+    });
   });
 </script>

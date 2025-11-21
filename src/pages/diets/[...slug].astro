@@ -1,0 +1,363 @@
+---
+// src/pages/diets/[...slug].astro
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '@components/Navbar.astro';
+
+// Generate static paths for all diets
+export async function getStaticPaths() {
+  const diets = await getCollection('diets', ({ data }) => {
+    return !data.draft;
+  });
+  
+  return diets.map((diet) => ({
+    params: { slug: diet.slug },
+    props: { diet },
+  }));
+}
+
+// Get the diet from props
+const { diet } = Astro.props as { diet: CollectionEntry<'diets'> };
+
+// Get the rendered content
+const { Content } = await diet.render();
+---
+
+<Layout title={`${diet.data.title} | Dr. Villoria - Especialista en Aparato Digestivo`}>
+  <Navbar />
+  
+  <main class="diet-main">
+    <div class="diet-header">
+      <div class="diet-header-background">
+        <img src="/assets/medweb_background.avif" loading="lazy" alt="Background" class="header-shadow-image">
+        <div class="gradient-overlay"></div>
+        <div class="pattern-overlay"></div>
+      </div>
+      <div class="container">
+        <div class="diet-category">{diet.data.category}</div>
+        <h1>{diet.data.title}</h1>
+      </div>
+    </div>
+    
+    <div class="diet-back">
+      <div class="container">
+        <a href="/#treatments" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Volver a Guía de Salud
+        </a>
+      </div>
+    </div>
+    
+    <article class="diet-content">
+      <div class="container">
+        <div class="diet-body">
+          <Content />
+        </div>
+        
+        {diet.data.downloadFile && (
+          <div class="download-section">
+            <a href={diet.data.downloadFile} class="download-button" download>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Descargar PDF de la dieta
+            </a>
+          </div>
+        )}
+      </div>
+    </article>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .diet-main {
+    padding-bottom: 5rem;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .diet-header {
+    position: relative;
+    padding: 8rem 0 4rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+
+  .diet-header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+
+  .header-shadow-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.95) 0%, 
+      rgba(195, 214, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+    z-index: 1;
+  }
+
+  .pattern-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.02) 0%, transparent 50%);
+    opacity: 0.6;
+    z-index: 2;
+  }
+
+  .diet-header .container {
+    position: relative;
+    z-index: 3;
+  }
+  
+  .diet-header h1 {
+    font-size: 3rem;
+    max-width: 900px;
+    margin: 0 auto 1rem;
+    color: #1e293b;
+  }
+  
+  .diet-category {
+    display: inline-block;
+    background-color: #10b981;
+    color: white;
+    font-size: 0.9rem;
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .diet-back {
+    margin: 2rem 0;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    background-color: transparent;
+    color: #4a90e2;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    border: 1px solid #4a90e2;
+    transition: all 0.3s ease;
+    gap: 0.5rem;
+  }
+  
+  .back-link:hover {
+    background-color: rgba(74, 144, 226, 0.05);
+    transform: translateY(-2px);
+  }
+  
+  .back-link svg {
+    transition: transform 0.2s ease;
+  }
+  
+  .back-link:hover svg {
+    transform: translateX(-3px);
+  }
+  
+  .diet-content {
+    padding: 2rem 0;
+  }
+  
+  .diet-body {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #2d3748;
+  }
+  
+  .diet-body h1,
+  .diet-body h2,
+  .diet-body h3,
+  .diet-body h4,
+  .diet-body h5,
+  .diet-body h6 {
+    margin: 2rem 0 1rem;
+    color: #2c3e50;
+    line-height: 1.3;
+  }
+  
+  .diet-body h1 {
+    font-size: 2.5rem;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 0.5rem;
+  }
+  
+  .diet-body h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 0.3rem;
+  }
+  
+  .diet-body h3 {
+    font-size: 1.6rem;
+  }
+  
+  .diet-body p {
+    margin: 1.2rem 0;
+  }
+  
+  .diet-body ul,
+  .diet-body ol {
+    margin: 1.2rem 0;
+    padding-left: 2rem;
+  }
+  
+  .diet-body li {
+    margin: 0.5rem 0;
+  }
+  
+  .diet-body blockquote {
+    border-left: 4px solid #10b981;
+    background-color: #f0fdf4;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+  
+  .diet-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+  }
+  
+  .diet-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+  
+  .diet-body th,
+  .diet-body td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .diet-body th {
+    background-color: #f0fdf4;
+    font-weight: 600;
+  }
+  
+  .diet-body tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+  
+  .download-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(74, 144, 226, 0.05));
+    border-radius: 12px;
+    border: 2px dashed #10b981;
+  }
+  
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  }
+  
+  .download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669, #047857);
+  }
+  
+  .download-button svg {
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .diet-header {
+      padding: 6rem 0 3rem;
+    }
+    
+    .diet-header h1 {
+      font-size: 2.2rem;
+    }
+    
+    .diet-body {
+      font-size: 1rem;
+    }
+    
+    .diet-body h1 {
+      font-size: 2rem;
+    }
+    
+    .diet-body h2 {
+      font-size: 1.7rem;
+    }
+    
+    .diet-body h3 {
+      font-size: 1.4rem;
+    }
+    
+    .download-button {
+      font-size: 1rem;
+      padding: 0.875rem 2rem;
+    }
+  }
+</style>

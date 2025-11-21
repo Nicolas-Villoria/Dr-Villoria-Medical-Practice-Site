@@ -17,7 +17,22 @@ const articlesCollection = defineCollection({
   }),
 });
 
+// Define the schema for the diets collection
+const dietsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    category: z.string(),
+    description: z.string(),
+    image: z.string().optional(),
+    downloadFile: z.string(),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+  }),
+});
+
 // Export the collections
 export const collections = {
   'articles': articlesCollection,
+  'diets': dietsCollection,
 };

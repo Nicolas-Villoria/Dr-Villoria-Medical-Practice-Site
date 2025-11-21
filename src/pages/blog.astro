@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import Navbar from '@components/Navbar.astro';
 
 // Get all articles that are not drafts
 const allArticles = await getCollection('articles', ({ data }: { data: { draft?: boolean } }) => {
@@ -23,7 +23,7 @@ function formatDate(date: Date): string {
 ---
 
 <Layout title="Blog | Dr. Villoria - Especialista en Aparato Digestivo">
-  <Header />
+  <Navbar />
   
   <main>
     <section class="blog-hero">
